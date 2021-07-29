@@ -17,5 +17,5 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log('connected to db');
             app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
 
