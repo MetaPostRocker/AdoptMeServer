@@ -6,7 +6,7 @@ const Ad = require('./ad');
 const userSchema = new Schema({
     token: {
         type: String,
-        required: true
+        required: false
     },
     firstname: {
         type: String,
@@ -22,7 +22,7 @@ const userSchema = new Schema({
     },
     location: {
         type : Location.schema,
-        required: true
+        required: false
     },
     bookmarks: {
         type: [Schema.Types.ObjectId]
