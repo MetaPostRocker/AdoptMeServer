@@ -1,27 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/user_controller');
+const petTypeController = require('../controllers/pet_type_controller');
 
-const AnimalType = require('../models/animal_type')
+// Pet Type Routes
+router.get('/getAvailablePetTypes', petTypeController.getPetTypes);
 
-// Logic
-router.get('/getAvailablePetTypes', (req, res) => {
-    AnimalType.find()
-            .then(data => res.send(data))
-            .catch(err => console.error(err));
-    
-});
+router.post('/addPetType', petTypeController.addPetType);
 
-router.post('/addPetType', (req, res) => {
-    newAnimalType = new AnimalType({
-        name : req.body.name,
-        imgURL : req.body.imgURL
-    });
-    newAnimalType.save()
-                .then(data => {
-                    res.send(data);
-                })
-                .catch(err => console.error(err));
-});
-
+// User Routes
+router.post('/addUser', userController.addUser);
 
 module.exports = router;

@@ -6,27 +6,29 @@ const Ad = require('./ad');
 const userSchema = new Schema({
     token: {
         type: String,
-        required: true
     },
     firstname: {
         type: String,
-        required: true
+        required: true,
     },
     lastname: {
         type: String,
-        required: true
+        required: true,
     },
     username: {
         type: String,
-        required: true
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
     },
     location: {
-        type : Location.schema,
-        required: true
+        type: Location.schema,
     },
     bookmarks: {
-        type: [Schema.Types.ObjectId]
-    }
+        type: [Schema.Types.ObjectId],
+    },
 });
 
 const User = mongoose.model('user', userSchema);

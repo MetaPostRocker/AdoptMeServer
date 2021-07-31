@@ -4,14 +4,14 @@ const Schema = mongoose.Schema;
 const locationSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     longitude: {
-        type:  Number
+        type: Number,
     },
     latitude: {
-        type:  Number
-    }
+        type: Number,
+    },
 });
 
 const Location = mongoose.model('location', locationSchema);
