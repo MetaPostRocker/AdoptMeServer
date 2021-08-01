@@ -6,7 +6,7 @@ function getPetTypes(req, res) {
         .catch((err) => console.error(err));
 }
 
-function addPetType(req, res) {
+function createPetType(req, res) {
     newPetType = new PetType(req.body);
 
     newPetType
@@ -19,5 +19,5 @@ function addPetType(req, res) {
 
 module.exports = {
     getPetTypes,
-    addPetType,
+    createPetType,
 };
