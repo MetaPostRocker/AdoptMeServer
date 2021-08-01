@@ -10,5 +10,6 @@ router.post('/addPetType', petTypeController.addPetType);
 
 // User Routes
 router.post('/addUser', userController.addUser);
+router.post('/login', userController.loginUser);
 
 module.exports = router;
