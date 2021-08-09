@@ -25,6 +25,7 @@ const userSchema = new Schema({
     },
     location: {
         type: Location.schema,
+        required: true,
     },
     bookmarks: {
         type: [Schema.Types.ObjectId],

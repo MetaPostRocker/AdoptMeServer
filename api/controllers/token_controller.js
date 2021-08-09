@@ -24,10 +24,10 @@ async function createRefreshToken(userId) {
 
 async function refreshToken(req, res) {
     const refreshToken = req.body.token;
-    if (!refreshToken) res.sendStatus(401);
+    if (!refreshToken) return res.sendStatus(401);
 
     if (!(await Token.findOne({ content: refreshToken }))) {
-        res.sendStatus(401);
+        return res.sendStatus(401);
     }
 
     jwt.verify(refreshToken, secrets.REFRESH_TOKEN_SECRET, (err, userId) => {

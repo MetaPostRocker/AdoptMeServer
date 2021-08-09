@@ -7,7 +7,7 @@ async function create(req, res) {
     const username = req.body.username;
 
     if (await User.findOne({ username })) {
-        res.status(403).json({
+        return res.status(403).json({
             msg: `User with username '${username}' already exists`,
         });
     }
@@ -24,7 +24,7 @@ async function create(req, res) {
 
             newUser
                 .save()
-                .then((user) => res.json(user))
+                .then((user) => res.sendStatus(201))
                 .catch((err) => {
                     console.error(err);
                     res.status(424).json({
@@ -39,7 +39,7 @@ async function login(req, res) {
     const username = req.body.username;
 
     if (!username) {
-        res.status(403).json({
+        return res.status(403).json({
             msg: `Provide username`,
         });
     }
@@ -47,13 +47,13 @@ async function login(req, res) {
     user = await User.findOne({ username });
 
     if (!user) {
-        res.status(403).json({
+        return res.status(403).json({
             msg: `User with username '${username}' doesn't exist`,
         });
     }
 
     if (!req.body.password) {
-        res.status(403).json({
+        return res.status(403).json({
             msg: `Provide password`,
         });
     }
@@ -61,7 +61,7 @@ async function login(req, res) {
     bcrypt.compare(req.body.password, user.password, async (err, match) => {
         if (err) {
             console.error(err);
-            res.sendStatus(424);
+            return res.sendStatus(424);
         }
         if (match) {
             const accessToken = tokenController.createAccessToken(user._id);
@@ -73,7 +73,7 @@ async function login(req, res) {
                 firstname: user.firstname,
                 lastname: user.lastname,
                 username: user.username,
-                // locationId: user.location._id,
+                locationId: user.location._id,
             });
         } else {
             res.status(403).json({
@@ -94,7 +94,7 @@ function authenticateUser(req, res, next) {
 
     if (!token)
         return res.status(401).json({
-            msg: 'Provide token',
+            msg: 'Token isn\'t provided',
         });
 
     const userId = tokenController.verifyToken(token);
