@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const tokenController = require('./token_controller');
 const User = require('../models/user');
-const { JsonWebTokenError } = require('jsonwebtoken');
 
 async function create(req, res) {
     const username = req.body.username;
@@ -97,13 +96,13 @@ function authenticateUser(req, res, next) {
             msg: 'Token isn\'t provided',
         });
 
-    const userId = tokenController.verifyToken(token);
-    if (!userId)
+    const tokenInfo = tokenController.verifyToken(token);
+    if (!tokenInfo)
         res.status(403).json({
             msg: 'Invalid token',
         });
 
-    req.userId = userId;
+    req.body.userId = tokenInfo.userId;
     next();
 }
 

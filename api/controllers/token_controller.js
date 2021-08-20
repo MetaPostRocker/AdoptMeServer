@@ -30,9 +30,9 @@ async function refreshToken(req, res) {
         return res.sendStatus(401);
     }
 
-    jwt.verify(refreshToken, secrets.REFRESH_TOKEN_SECRET, (err, userId) => {
+    jwt.verify(refreshToken, secrets.REFRESH_TOKEN_SECRET, (err, tokenInfo) => {
         if (err) return res.sendStatus(403);
-        const accessToken = createAccessToken(userId);
+        const accessToken = createAccessToken(tokenInfo.userId);
         res.json({ accessToken });
     });
 }
